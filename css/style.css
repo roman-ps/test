@@ -8,13 +8,38 @@ body {
   display: none;
 }
 
-.form {
+.item {
+  font-size: 18px;
+}
+
+.title {
+  font-size: 30px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 24px;
+}
+
+.subtitle--red {
+  color: #a10031;
+}
+
+.form,
+.popup {
   width: 490px;
   box-sizing: border-box;
-  padding: 56px 90px 47px 84px;
   position: fixed;
   background-color: #ffffff;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.wrapper {
+  padding: 56px 90px 47px 84px;
+}
+
+.item__input {
+  width: 100%;
 }
