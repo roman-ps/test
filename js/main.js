@@ -9,6 +9,10 @@ const INSTALL = document.querySelector(".checkbox--install");
 const CONTAINER_FIRST = document.querySelector(".container--first");
 const CONTAINER_SECOND = document.querySelector(".container--second");
 const POPUP = document.querySelector(".popup");
+
+let length = document.querySelector("#length");
+let height = document.querySelector("#height");
+let checkbox = document.querySelector("#checkbox");
 /*
 BTN_NEXT.addEventListener("click", changeFormVisibility);
 BTN_SUBMIT.addEventListener("click", changeFormVisibility);
@@ -39,6 +43,12 @@ BTN_NEXT.addEventListener("click", changeFirstForm);
 BTN_SUBMIT.addEventListener("click", changeSecondForm);
 BTN_PREV.addEventListener("click", openFirstForm);
 BTN_CLOSE.addEventListener("click", closePopup);
+
+function checkValue(){
+  if (length.value != 0 && height.value != 0) {
+    BTN_NEXT.disable = false;
+  }
+}
 
 function changeFirstForm(evt){
   evt.preventDefault;
