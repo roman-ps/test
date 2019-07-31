@@ -14,13 +14,13 @@
         <div class="wrapper">
           <div class="item">
             <div class="item__title">Длина забора</div>
-            <input class="item__input" type="text" id="length" name="length" placeholder="0" required>
+            <input class="item__input" type="number" id="length" name="length" placeholder="0" required>
             <span class="item__measure">метров</span>
           </div>
       
           <div class="item">
             <div class="item__title">Высота забора</div>
-            <input class="item__input" type="text" id="height" name="height" placeholder="0" required>
+            <input class="item__input" type="number" id="height" name="height" placeholder="0" required>
             <span class="item__measure">метров</span>
           </div>
 
@@ -34,12 +34,12 @@
               <option value="grid">Сетка 200 &#8381; за м<span class="exponent">2</span></option>
             </select>
             <div class="checkbox-wrapper">
-              <input class="checkbox checkbox--install" type="checkbox" id="checkbox1">
+              <input class="checkbox checkbox--install" type="checkbox" id="checkbox">
               <label for="checkbox1">Нужен монтаж</label>
             </div>
           </div>
           <div class="subtitle">Сумма заказа: <span class="subtitle subtitle--red">0 &#8381;</span></div>
-          <button class="btn btn--next" type="button">Далее</button>
+          <button class="btn btn--next" type="button" disabled>Далее</button>
         </div>
       </div>
       
