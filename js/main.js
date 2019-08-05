@@ -19,6 +19,7 @@ let checkbox = document.querySelector("#checkbox");
 length.addEventListener("change", checkValue);
 height.addEventListener("change", checkValue);
 material.addEventListener("change", checkValue);
+checkbox.addEventListener("change", checkValue);
 BTN_NEXT.addEventListener("click", changeFirstForm);
 BTN_SUBMIT.addEventListener("click", changeSecondForm);
 BTN_PREV.addEventListener("click", openFirstForm);
@@ -34,29 +35,25 @@ function getMaterial(evt) {
 
 // проверка заполненности полей формы
 function checkValue(){
-  //let lengthValue = length.value;
-  //let heightValue = height.value;
   getPrice();
   console.log(getMaterial());
-  if ((lengthValue != '') && (heightValue != '') && (getMaterial() > 199)) {
+  if ((length.value != '') && (height.value != '') && (getMaterial() > 199)) {
     BTN_NEXT.disabled = false;
   }
 }
 
-
 // вычисляем сумму заказа
 function getPrice(){
-  PRICE.textContent = (length.value * height.value) * getMaterial();
-  //let lengthValue = length.value;
-  //let heightValue = height.value;
-  //PRICE.innerHTML = lengthValue + heightValue;
+  if (checkbox.checked) {
+    PRICE.textContent = (length.value * height.value) * (getMaterial() + 200);
+  }
+  else {
+    PRICE.textContent = (length.value * height.value) * getMaterial();
+  }
 }
-
 
 function changeFirstForm(evt){
   evt.preventDefault;
-  checkValue();
-  getPrice();
   CONTAINER_FIRST.classList.toggle("hidden");
   CONTAINER_SECOND.classList.toggle("hidden");
 }
