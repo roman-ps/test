@@ -9,49 +9,54 @@ const INSTALL = document.querySelector(".checkbox--install");
 const CONTAINER_FIRST = document.querySelector(".container--first");
 const CONTAINER_SECOND = document.querySelector(".container--second");
 const POPUP = document.querySelector(".popup");
+const PRICE = document.querySelector(".price--red");
 
 let length = document.querySelector("#length");
 let height = document.querySelector("#height");
+let material = document.querySelector("#material");
 let checkbox = document.querySelector("#checkbox");
-/*
-BTN_NEXT.addEventListener("click", changeFormVisibility);
-BTN_SUBMIT.addEventListener("click", changeFormVisibility);
-//BTN.addEventListener("click", changeFormVisibility);
 
-// изменение видимости формы
-function changeFormVisibility(evt){
-  evt.preventDefault;
-  hideForm(evt);
-  //showForm(evt);
-}
-
-// скрытие формы
-function hideForm(evt){
-  evt.preventDefault();
-  let a = BTN_NEXT.parentNode;
-  a.classList.toggle("hidden");
-  console.log(a.nextSibling);
-}
-
-// показ формы
-function showForm(evt){
-  evt.preventDefault();
-}
-*/
-
+length.addEventListener("change", checkValue);
+height.addEventListener("change", checkValue);
+material.addEventListener("change", checkValue);
 BTN_NEXT.addEventListener("click", changeFirstForm);
 BTN_SUBMIT.addEventListener("click", changeSecondForm);
 BTN_PREV.addEventListener("click", openFirstForm);
 BTN_CLOSE.addEventListener("click", closePopup);
 
+// выбор материала
+function getMaterial(evt) {
+  if (material.value == "decking") return 400;
+  if (material.value == "modules") return 500;
+  if (material.value == "concrete") return 700;
+  if (material.value == "grid") return 200;
+}
+
+// проверка заполненности полей формы
 function checkValue(){
-  if (length.value != 0 && height.value != 0) {
-    BTN_NEXT.disable = false;
+  //let lengthValue = length.value;
+  //let heightValue = height.value;
+  getPrice();
+  console.log(getMaterial());
+  if ((lengthValue != '') && (heightValue != '') && (getMaterial() > 199)) {
+    BTN_NEXT.disabled = false;
   }
 }
 
+
+// вычисляем сумму заказа
+function getPrice(){
+  PRICE.textContent = (length.value * height.value) * getMaterial();
+  //let lengthValue = length.value;
+  //let heightValue = height.value;
+  //PRICE.innerHTML = lengthValue + heightValue;
+}
+
+
 function changeFirstForm(evt){
   evt.preventDefault;
+  checkValue();
+  getPrice();
   CONTAINER_FIRST.classList.toggle("hidden");
   CONTAINER_SECOND.classList.toggle("hidden");
 }

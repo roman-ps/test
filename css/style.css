@@ -17,11 +17,11 @@ body {
   text-align: center;
 }
 
-.subtitle {
+.price {
   font-size: 24px;
 }
 
-.subtitle--red {
+.price--red {
   color: #a10031;
 }
 
