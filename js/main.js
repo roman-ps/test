@@ -10,6 +10,7 @@ const CONTAINER_FIRST = document.querySelector(".container--first");
 const CONTAINER_SECOND = document.querySelector(".container--second");
 const POPUP = document.querySelector(".popup");
 const PRICE = document.querySelector(".price--red");
+const METERS = document.querySelector(".item__measure");
 
 let length = document.querySelector("#length");
 let height = document.querySelector("#height");
@@ -31,15 +32,47 @@ function getMaterial(evt) {
   if (material.value == "modules") return 500;
   if (material.value == "concrete") return 700;
   if (material.value == "grid") return 200;
+  else return 0;
 }
+
+// вычисляем количество цифр в числе
+function getSumNumbers(numbers){
+  for (var i = 0; numbers > 1; i++) {
+    numbers = numbers / 10;
+  }
+  return i;
+}
+
+// склоняем окончания метров
+/*function bowMeters(number){
+  if (number < 2) {
+    if (length.value == 1) {METERS.textContent = "метр"}
+    if ((length.value > 1) && (length.value <= 4)) {METERS.textContent = "метра"}
+    if (length.value > 4) {METERS.textContent = "метров"}
+  } else {
+    if ((length.value % 10 == 0) || (length.value % 10 > 4) || (length.value <= 9)) {METERS.textContent = "метров"}
+    if (length.value % 10 == 1) {METERS.textContent = "метр"}
+    if ((length.value % 10 > 1) && (length.value % 10 <= 4)) {METERS.textContent = "метра"}
+  }
+}
+*/
+
+// склоняем окончания метров
+function bowMeters(number){
+  if (((number > 4) && (number < 20)) || (number % 10 == 0)) {METERS.textContent = "метров"}
+  if ((number == 1) || (number % 10 == 1)) {METERS.textContent = "метр"}
+  if (((number % 10 > 1) && (number % 10 < 5)) || ((number > 1) && (number < 5))) {METERS.textContent = "метра"}
+}
+
 
 // проверка заполненности полей формы
 function checkValue(){
   getPrice();
-  console.log(getMaterial());
   if ((length.value != '') && (height.value != '') && (getMaterial() > 199)) {
     BTN_NEXT.disabled = false;
   }
+  //getSumNumbers(length.value);
+  bowMeters(length.value);
 }
 
 // вычисляем сумму заказа
