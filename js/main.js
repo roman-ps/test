@@ -44,26 +44,13 @@ function getSumNumbers(numbers){
 }
 
 // склоняем окончания метров
-/*function bowMeters(number){
-  if (number < 2) {
-    if (length.value == 1) {METERS.textContent = "метр"}
-    if ((length.value > 1) && (length.value <= 4)) {METERS.textContent = "метра"}
-    if (length.value > 4) {METERS.textContent = "метров"}
-  } else {
-    if ((length.value % 10 == 0) || (length.value % 10 > 4) || (length.value <= 9)) {METERS.textContent = "метров"}
-    if (length.value % 10 == 1) {METERS.textContent = "метр"}
-    if ((length.value % 10 > 1) && (length.value % 10 <= 4)) {METERS.textContent = "метра"}
-  }
+function bowMeters(n){
+  if (n % 10 == 0) {METERS.textContent = "метров"};
+  if (n == 1 || n % 10 == 1) {METERS.textContent = "метр"};
+  if (n % 10 >= 2 && n % 10 <= 4) {METERS.textContent = "метра"};
+  if (n >= 5 && n <= 19) {METERS.textContent = "метров"};
+  if (n % 10 >= 5 && n % 10 <= 9) {METERS.textContent = "метров"};
 }
-*/
-
-// склоняем окончания метров
-function bowMeters(number){
-  if (((number > 4) && (number < 20)) || (number % 10 == 0)) {METERS.textContent = "метров"}
-  if ((number == 1) || (number % 10 == 1)) {METERS.textContent = "метр"}
-  if (((number % 10 > 1) && (number % 10 < 5)) || ((number > 1) && (number < 5))) {METERS.textContent = "метра"}
-}
-
 
 // проверка заполненности полей формы
 function checkValue(){
