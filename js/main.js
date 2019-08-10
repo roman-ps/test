@@ -45,11 +45,10 @@ function getSumNumbers(numbers){
 
 // склоняем окончания метров
 function bowMeters(n){
-  if (n % 10 == 0) {METERS.textContent = "метров"};
-  if (n == 1 || n % 10 == 1) {METERS.textContent = "метр"};
-  if (n % 10 >= 2 && n % 10 <= 4) {METERS.textContent = "метра"};
-  if (n >= 5 && n <= 19) {METERS.textContent = "метров"};
-  if (n % 10 >= 5 && n % 10 <= 9) {METERS.textContent = "метров"};
+  if (n % 10 == 1 && n % 100 != 11) {METERS.textContent = "метр"} 
+  else 
+  if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) {METERS.textContent = "метра"}
+  else {METERS.textContent = "метров"}
 }
 
 // проверка заполненности полей формы
@@ -58,7 +57,6 @@ function checkValue(){
   if ((length.value != '') && (height.value != '') && (getMaterial() > 199)) {
     BTN_NEXT.disabled = false;
   }
-  //getSumNumbers(length.value);
   bowMeters(length.value);
 }
 
