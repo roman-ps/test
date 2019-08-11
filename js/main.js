@@ -11,37 +11,40 @@ const CONTAINER_SECOND = document.querySelector(".container--second");
 const POPUP = document.querySelector(".popup");
 const PRICE = document.querySelector(".price--red");
 const METERS = document.querySelector(".item__measure");
+const INPUT_CONTAINER_SECOND = CONTAINER_SECOND.querySelectorAll(".item__input");
+const MATERIALS = {
+  "decking": 400,
+  "modules": 500,
+  "concrete": 700,
+  "grid": 200,
+  "choose": 0
+};
+
+// определение цены на материал
+const getPriceByValue = function(value) {
+  return MATERIALS[value] || MATERIALS.choose;
+} 
 
 let length = document.querySelector("#length");
 let height = document.querySelector("#height");
 let material = document.querySelector("#material");
 let checkbox = document.querySelector("#checkbox");
+let name = document.querySelector("#name");
+let mail = document.querySelector("#mail");
+let phone = document.querySelector("#phone");
 
 length.addEventListener("change", checkValue);
 height.addEventListener("change", checkValue);
 material.addEventListener("change", checkValue);
 checkbox.addEventListener("change", checkValue);
+//INPUT_CONTAINER_SECOND.addEventListener("change", checkSecondValue);
+name.addEventListener("change", checkSecondValue);
+mail.addEventListener("change", checkSecondValue);
+phone.addEventListener("change", checkSecondValue);
 BTN_NEXT.addEventListener("click", changeFirstForm);
 BTN_SUBMIT.addEventListener("click", changeSecondForm);
 BTN_PREV.addEventListener("click", openFirstForm);
 BTN_CLOSE.addEventListener("click", closePopup);
-
-// выбор материала
-function getMaterial(evt) {
-  if (material.value == "decking") return 400;
-  if (material.value == "modules") return 500;
-  if (material.value == "concrete") return 700;
-  if (material.value == "grid") return 200;
-  else return 0;
-}
-
-// вычисляем количество цифр в числе
-function getSumNumbers(numbers){
-  for (var i = 0; numbers > 1; i++) {
-    numbers = numbers / 10;
-  }
-  return i;
-}
 
 // склоняем окончания метров
 function bowMeters(n){
@@ -54,19 +57,26 @@ function bowMeters(n){
 // проверка заполненности полей формы
 function checkValue(){
   getPrice();
-  if ((length.value != '') && (height.value != '') && (getMaterial() > 199)) {
+  if ((length.value != '') && (height.value != '') && (getPriceByValue(material.value) > 199)) {
     BTN_NEXT.disabled = false;
   }
   bowMeters(length.value);
 }
 
+// проверка заполненности полей 2 части формы
+function checkSecondValue(){
+  if ((name.value != '') && (mail.value != '') && (phone.value != '')) {
+    BTN_SUBMIT.disabled = false;
+  }
+}
+
 // вычисляем сумму заказа
 function getPrice(){
   if (checkbox.checked) {
-    PRICE.textContent = (length.value * height.value) * (getMaterial() + 200);
+    PRICE.textContent = (length.value * height.value) * (getPriceByValue(material.value) + 200);
   }
   else {
-    PRICE.textContent = (length.value * height.value) * getMaterial();
+    PRICE.textContent = (length.value * height.value) * getPriceByValue(material.value);
   }
 }
 

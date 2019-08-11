@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <title>Заказ</title>
-    <link href="css/style.css" rel="stylesheet">
-  </head>
-  <body>
-    
-    <form class="form">
-      
-      <div class="container container--first">
-        <div class="title">Заказать забор</div>
-        <div class="wrapper">
-          <div class="item">
-            <div class="item__title">Длина забора</div>
-            <input class="item__input" type="number" id="length" name="length" placeholder="0" required autofocus>
-            <span class="item__measure">метров</span>
-          </div>
-      
-          <div class="item">
-            <div class="item__title">Высота забора</div>
-            <input class="item__input" type="number" id="height" name="height" placeholder="0" required>
-            <span class="item__measure">метров</span>
-          </div>
+<head>
+  <meta charset="utf-8">
+  <title>Заказ</title>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
 
-          <div class="item">
-            <div class="item__title">Материал забора</div>
-            <select class="item__input" id="material" name="material" required>
-              <option value="choose" selected>Выберите материал</option>
-              <option value="decking">Профнастил 400 &#8381; за м<span class="exponent">2</span></option>
-              <option value="modules">Модули 500 &#8381; за м<span class="exponent">2</span></option>
-              <option value="concrete">Бетон 700 &#8381; за м<span class="exponent">2</span></option>
-              <option value="grid">Сетка 200 &#8381; за м<span class="exponent">2</span></option>
-            </select>
-            <div class="checkbox-wrapper">
-              <input class="checkbox checkbox--install" type="checkbox" id="checkbox">
-              <label for="checkbox1">Нужен монтаж</label>
-            </div>
-          </div>
-          <div class="price">Сумма заказа: <span class="price price--red">0 </span>&#8381;</div>
-          <button class="btn btn--next" type="button" disabled>Далее</button>
-        </div>
-      </div>
-      
-      <div class="container container--second hidden">
-        <button class="btn btn--prev">Вернуться</button>
-        <h1 class="title">Пожалуйста, представьтесь</h1>
-        <div class="wrapper">
-          <div class="item">
-            <div class="item__title">Ваше имя</div>
-            <input class="item__input" type="text" id="name" name="name" required>
-          </div>
-        
-          <div class="item">
-            <div class="item__title">Электронная почта</div>
-            <input class="item__input" type="email" id="mail" name="mail" required>
-          </div>
-        
-          <div class="item">
-            <div class="item__title">Телефон</div>
-            <input class="item__input" type="tel" id="phone" name="phone" placeholder="+7(___)___-__-__" required>
-          </div>
-          <p class="item__output">Вы укомплектовали забор длинной 6 метров и высотой 2 метра из материала профнастил на сумму 8 400 &#8381;</p>
-          <button class="btn btn--submit" type="submit">Отправить</button>
-        </div>
-      </div>
-      
-    </form>
-    
-    <div class="popup hidden">
-      <button class="btn btn--close" type="button">Закрыть</button>
-      <h1 class="title">Татьяна, заказ № 8675 сформирован!</h1>
+  <form class="form">
+
+    <div class="container container--first">
+      <div class="title">Заказать забор</div>
       <div class="wrapper">
-        <div class="popup__mail">Мы повторили его комплектацию на почту mail@mail.ru</div>
-        <div class="popup__callback">В ближайшее время наш специалист свяжется с вами по телефону +7(917)111-22-33</div>      
+        <div class="item">
+          <div class="item__title">Длина забора</div>
+          <input class="item__input" type="number" id="length" name="length" placeholder="0" required autofocus>
+          <span class="item__measure">метров</span>
+        </div>
+
+        <div class="item">
+          <div class="item__title">Высота забора</div>
+          <input class="item__input" type="number" id="height" name="height" placeholder="0" required>
+          <span class="item__measure">метров</span>
+        </div>
+
+        <div class="item">
+          <div class="item__title">Материал забора</div>
+          <select class="item__input" id="material" name="material" required>
+            <option value="choose" selected>Выберите материал</option>
+            <option value="decking">Профнастил 400 &#8381; за м<span class="exponent">2</span></option>
+            <option value="modules">Модули 500 &#8381; за м<span class="exponent">2</span></option>
+            <option value="concrete">Бетон 700 &#8381; за м<span class="exponent">2</span></option>
+            <option value="grid">Сетка 200 &#8381; за м<span class="exponent">2</span></option>
+          </select>
+          <div class="checkbox-wrapper">
+            <input class="checkbox checkbox--install" type="checkbox" id="checkbox">
+            <label for="checkbox1">Нужен монтаж</label>
+          </div>
+        </div>
+        <div class="price">Сумма заказа: <span class="price price--red">0 </span>&#8381;</div>
+        <button class="btn btn--next" type="button" disabled>Далее</button>
       </div>
     </div>
-    
-    <script src="js/main.js"></script>
-  </body>
+
+    <div class="container container--second hidden">
+      <button class="btn btn--prev">Вернуться</button>
+      <h1 class="title">Пожалуйста, представьтесь</h1>
+      <div class="wrapper">
+        <div class="item">
+          <div class="item__title">Ваше имя</div>
+          <input class="item__input" type="text" id="name" name="name" required autofocus>
+        </div>
+
+        <div class="item">
+          <div class="item__title">Электронная почта</div>
+          <input class="item__input" type="email" id="mail" name="mail" required>
+        </div>
+
+        <div class="item">
+          <div class="item__title">Телефон</div>
+          <input class="item__input" type="tel" id="phone" name="phone" placeholder="+7(___)___-__-__" required>
+        </div>
+        <p class="item__output">Вы укомплектовали забор длинной 6 метров и высотой 2 метра из материала профнастил на сумму 8 400 &#8381;</p>
+        <button class="btn btn--submit" type="submit" disabled>Отправить</button>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="popup hidden">
+    <button class="btn btn--close" type="button">Закрыть</button>
+    <h1 class="title">Татьяна, заказ № 8675 сформирован!</h1>
+    <div class="wrapper">
+      <div class="popup__mail">Мы повторили его комплектацию на почту mail@mail.ru</div>
+      <div class="popup__callback">В ближайшее время наш специалист свяжется с вами по телефону +7(917)111-22-33</div>      
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
 </html>
