@@ -47,10 +47,10 @@ BTN_PREV.addEventListener("click", openFirstForm);
 BTN_CLOSE.addEventListener("click", closePopup);
 
 // склоняем окончания метров
-function bowMeters(n){
-  if (n % 10 == 1 && n % 100 != 11) {METERS.textContent = "метр"} 
+function bowMeters(number){
+  if (number % 10 == 1 && number % 100 != 11) {METERS.textContent = "метр"} 
   else 
-  if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) {METERS.textContent = "метра"}
+  if (number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {METERS.textContent = "метра"}
   else {METERS.textContent = "метров"}
 }
 
