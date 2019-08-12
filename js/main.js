@@ -46,21 +46,19 @@ BTN_SUBMIT.addEventListener("click", changeSecondForm);
 BTN_PREV.addEventListener("click", openFirstForm);
 BTN_CLOSE.addEventListener("click", closePopup);
 
-// склоняем окончания метров
-function bowMeters(number){
-  if (number % 10 == 1 && number % 100 != 11) {METERS.textContent = "метр"} 
-  else 
-  if (number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {METERS.textContent = "метра"}
-  else {METERS.textContent = "метров"}
+// вычисляем нужное окончание слова
+function bowMeters(number, one, two, five){
+  if (number % 10 == 1 && number % 100 != 11) {return one} else 
+    if (number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {return two} else {return five};
 }
 
 // проверка заполненности полей формы
 function checkValue(){
+  METERS.textContent = bowMeters(length.value, "метр", "метра", "метров");
   getPrice();
   if ((length.value != '') && (height.value != '') && (getPriceByValue(material.value) > 199)) {
     BTN_NEXT.disabled = false;
   }
-  bowMeters(length.value);
 }
 
 // проверка заполненности полей 2 части формы
