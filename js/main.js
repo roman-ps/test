@@ -32,6 +32,9 @@ let checkbox = document.querySelector("#checkbox");
 let name = document.querySelector("#name");
 let mail = document.querySelector("#mail");
 let phone = document.querySelector("#phone");
+let outputData = document.querySelector(".item__output");
+let lengthOut = length.value;
+let outputText = `Вы укомплектовали забор длинной ${lengthOut} метров и высотой ${height} метра из материала ${material.value} на сумму ${getPrice()} &#8381;`;
 
 length.addEventListener("change", checkValue);
 height.addEventListener("change", checkValue);
@@ -65,6 +68,8 @@ function checkValue(){
 function checkSecondValue(){
   if ((name.value != '') && (mail.value != '') && (phone.value != '')) {
     BTN_SUBMIT.disabled = false;
+    outputData.classList.toggle("hidden");
+    outputData.innerHTML = outputText;
   }
 }
 
