@@ -34,8 +34,10 @@ let name = document.querySelector("#name");
 let mail = document.querySelector("#mail");
 let phone = document.querySelector("#phone");
 let outputData = document.querySelector(".item__output");
-let lengthOut = length.value;
-let outputText = `Вы укомплектовали забор длинной ${lengthOut} метров и высотой ${height} метра из материала ${material.value} на сумму ${getPrice()} &#8381;`;
+let lengthValue = length.value;
+let heightValue = height.value;
+let materialValue = material.value;
+let outputText = `Вы укомплектовали забор длинной ${lengthValue} метров и высотой ${heightValue} метра из материала ${materialValue} на сумму ${getPrice(lengthValue, heightValue, getPrice(lengthValue, heightValue, getPriceByValue(material.value)))} &#8381;`;
 
 length.addEventListener("change", checkValue);
 height.addEventListener("change", checkValue);
