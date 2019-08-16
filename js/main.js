@@ -12,7 +12,7 @@ const POPUP = document.querySelector(".popup");
 const PRICE = document.querySelector(".price--red");
 const METERS = document.querySelector(".item__measure");
 const INPUT_CONTAINER_SECOND = CONTAINER_SECOND.querySelectorAll(".item__input");
-const INSTALL = 200;
+const INSTALLATION = 200;
 const MATERIALS = {
   "decking": 400,
   "modules": 500,
@@ -59,7 +59,7 @@ function bowMeters(number, one, two, five){
 // проверка заполненности полей формы
 function checkValue(){
   METERS.textContent = bowMeters(length.value, "метр", "метра", "метров");
-  getPrice();
+  PRICE.textContent = getPrice(length.value, height.value, getPriceByValue(material.value));
   if ((length.value != '') && (height.value != '') && (getPriceByValue(material.value) > 199)) {
     BTN_NEXT.disabled = false;
   }
@@ -75,12 +75,12 @@ function checkSecondValue(){
 }
 
 // вычисляем сумму заказа
-function getPrice(){
+function getPrice(length, height, getPrice){
   if (checkbox.checked) {
-    PRICE.textContent = (length.value * height.value) * (getPriceByValue(material.value) + INSTALL);
+    return ((length * height) * (getPrice + INSTALLATION));
   }
   else {
-    PRICE.textContent = (length.value * height.value) * getPriceByValue(material.value);
+    return (length * height * getPrice);
   }
 }
 
