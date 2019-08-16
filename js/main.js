@@ -12,6 +12,7 @@ const POPUP = document.querySelector(".popup");
 const PRICE = document.querySelector(".price--red");
 const METERS = document.querySelector(".item__measure");
 const INPUT_CONTAINER_SECOND = CONTAINER_SECOND.querySelectorAll(".item__input");
+const INSTALL = 200;
 const MATERIALS = {
   "decking": 400,
   "modules": 500,
@@ -76,7 +77,7 @@ function checkSecondValue(){
 // вычисляем сумму заказа
 function getPrice(){
   if (checkbox.checked) {
-    PRICE.textContent = (length.value * height.value) * (getPriceByValue(material.value) + 200);
+    PRICE.textContent = (length.value * height.value) * (getPriceByValue(material.value) + INSTALL);
   }
   else {
     PRICE.textContent = (length.value * height.value) * getPriceByValue(material.value);
