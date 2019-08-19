@@ -40,8 +40,26 @@ let materialValue = material.value;
 let outputText = `Вы укомплектовали забор длинной ${lengthValue} метров и высотой ${heightValue} метра из материала ${materialValue} на сумму ${getPrice(lengthValue, heightValue, getPrice(lengthValue, heightValue, getPriceByValue(material.value)))} &#8381;`;
 let store = {
   "inputLength": 0,
+  set lengthOrder(length) {
+    this.inputLength = length;
+  },
+  get lengthOrder() {
+    return this.inputLength;
+  },
   "inputHeight": 0,
+  set heightOrder(height) {
+    this.inputHeight = height;
+  },
+  get heightOrder() {
+    return this.inputHeight;
+  },
   "selectMaterial": "choose",
+  set materialOrder(material) {
+    this.selectMaterial = material;
+  },
+  get materialOrder() {
+    return this.selectMaterial;
+  },
   "checkboxInstalling": false,
   "price": 0,
   "inputName": "",
@@ -89,21 +107,20 @@ function checkValue(){
 function checkLength(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
-  store.inputLength = item.value;
+  store.lengthOrder = item.value;
 }
 
 function checkHeight(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
   store.inputHeight = item.value;
-  console.log(item);
 }
 
 function checkMaterial(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
   store.selectMaterial = item.value;
-  console.log(item);
+  console.log(item.value);
 }
 
 function checkInstalling(evt) {
