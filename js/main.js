@@ -38,11 +38,25 @@ let lengthValue = length.value;
 let heightValue = height.value;
 let materialValue = material.value;
 let outputText = `Вы укомплектовали забор длинной ${lengthValue} метров и высотой ${heightValue} метра из материала ${materialValue} на сумму ${getPrice(lengthValue, heightValue, getPrice(lengthValue, heightValue, getPriceByValue(material.value)))} &#8381;`;
+let store = {
+  "inputLength": 0,
+  "inputHeight": 0,
+  "selectMaterial": "choose",
+  "checkboxInstalling": false,
+  "price": 0,
+  "inputName": "",
+  "inputMail": "",
+  "inputPhone": ""
+}
 
-length.addEventListener("change", checkValue);
-height.addEventListener("change", checkValue);
-material.addEventListener("change", checkValue);
-checkbox.addEventListener("change", checkValue);
+//length.addEventListener("change", checkValue);
+//height.addEventListener("change", checkValue);
+//checkbox.addEventListener("change", checkValue);
+//material.addEventListener("change", checkValue);
+material.addEventListener("change", checkMaterial);
+checkbox.addEventListener("change", checkInstalling);
+height.addEventListener("change", checkHeight);
+length.addEventListener("change", checkLength);
 //INPUT_CONTAINER_SECOND.addEventListener("change", checkSecondValue);
 name.addEventListener("change", checkSecondValue);
 mail.addEventListener("change", checkSecondValue);
@@ -70,6 +84,36 @@ function checkValue(){
   if ((length.value != '') && (height.value != '') && (getPriceByValue(material.value) > 199)) {
     BTN_NEXT.disabled = false;
   }
+}
+
+function checkLength(evt) {
+  evt.preventDefault;
+  let item = evt.currentTarget;
+  store.inputLength = item.value;
+}
+
+function checkHeight(evt) {
+  evt.preventDefault;
+  let item = evt.currentTarget;
+  store.inputHeight = item.value;
+  console.log(item);
+}
+
+function checkMaterial(evt) {
+  evt.preventDefault;
+  let item = evt.currentTarget;
+  store.selectMaterial = item.value;
+  console.log(item);
+}
+
+function checkInstalling(evt) {
+  evt.preventDefault;
+  //let item = evt.currentTarget;
+  //if (checkbox.checked == true) {
+  //  item = !item.value;
+  //}
+  store.checkboxInstalling = !store.checkboxInstalling;
+  console.log(store);
 }
 
 // проверка заполненности полей 2 части формы
