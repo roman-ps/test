@@ -61,10 +61,40 @@ let store = {
     return this.selectMaterial;
   },
   "checkboxInstalling": false,
+  set installOrder(install) {
+    this.checkboxInstalling = install;
+  },
+  get installOrder() {
+    return this.checkboxInstalling;
+  },
   "price": 0,
+  set priceOrder(price) {
+    this.price = price;
+  },
+  get priceOrder() {
+    return this.price;
+  },
   "inputName": "",
+  set nameUser(name) {
+    this.inputName = name;
+  },
+  get nameUser() {
+    return this.inputName;
+  },
   "inputMail": "",
-  "inputPhone": ""
+  set mailUser(mail) {
+    this.inputMail = mail;
+  },
+  get mailUser() {
+    return this.inputMail;
+  },
+  "inputPhone": "",
+  set phoneUser(phone) {
+    this.inputPhone = phone;
+  },
+  get phoneUser() {
+    return this.inputPhone;
+  },
 }
 
 //length.addEventListener("change", checkValue);
@@ -108,12 +138,18 @@ function checkLength(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
   store.lengthOrder = item.value;
+  store.price = store.inputLength * store.inputHeight;
+  PRICE.textContent = store.price;
+  console.log(store.price);
 }
 
 function checkHeight(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
   store.inputHeight = item.value;
+  store.price = store.inputLength * store.inputHeight;
+  PRICE.textContent = store.price;
+  console.log(store.price);
 }
 
 function checkMaterial(evt) {
