@@ -97,6 +97,25 @@ let store = {
   },
 }
 
+class Input {
+  
+  constructor({value, name, getCb, setSb}) {
+    this._value = value;
+    this._name = name;
+    this._getCb = getCb;
+    this._setCb = setSb;
+  }
+  
+  get value() {
+    return this._value;
+  }
+  
+  set value(value) {
+    this._value = value;
+  }
+  
+}
+
 //length.addEventListener("change", checkValue);
 //height.addEventListener("change", checkValue);
 //checkbox.addEventListener("change", checkValue);
