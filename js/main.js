@@ -112,6 +112,33 @@ class Input {
   
   set value(value) {
     this._value = value;
+    if (typeof this._setCb == function) {
+      this._setCb({name: this._name, value});
+    }
+  }
+  
+  get name() {
+    return this._name;
+  }
+  
+  set name(name) {
+    this._name = name;
+  }
+  
+  get getCb() {
+    return this._getCb;
+  }
+  
+  set getCb(getCb) {
+    this._getCb = getCb;
+  }
+  
+  get setSb() {
+    return this._setSb;
+  }
+  
+  set setSb(setSb) {
+    this._setSb = setSb;
   }
   
 }
