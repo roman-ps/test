@@ -38,7 +38,7 @@ let lengthValue = length.value;
 let heightValue = height.value;
 let materialValue = material.value;
 let outputText = `Вы укомплектовали забор длинной ${lengthValue} метров и высотой ${heightValue} метра из материала ${materialValue} на сумму ${getPrice(lengthValue, heightValue, getPrice(lengthValue, heightValue, getPriceByValue(material.value)))} &#8381;`;
-let store = {
+/*let store = {
   "inputLength": 0,
   set lengthOrder(length) {
     this.inputLength = length;
@@ -95,6 +95,17 @@ let store = {
   get phoneUser() {
     return this.inputPhone;
   },
+}*/
+
+const calcArea = ({name: this._name, value}) => ()
+
+const store = {
+  inputLength: new Input({
+  name: 'inputLength', 
+  value: '', 
+  getCb: () => {}, 
+  setCb: calcArea,
+  })
 }
 
 class Input {
@@ -112,7 +123,7 @@ class Input {
   
   set value(value) {
     this._value = value;
-    if (typeof this._setCb == function) {
+    if (typeof this._setCb == 'function') {
       this._setCb({name: this._name, value});
     }
   }
