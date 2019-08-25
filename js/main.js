@@ -38,83 +38,20 @@ let lengthValue = length.value;
 let heightValue = height.value;
 let materialValue = material.value;
 let outputText = `Вы укомплектовали забор длинной ${lengthValue} метров и высотой ${heightValue} метра из материала ${materialValue} на сумму ${getPrice(lengthValue, heightValue, getPrice(lengthValue, heightValue, getPriceByValue(material.value)))} &#8381;`;
-/*let store = {
-  "inputLength": 0,
-  set lengthOrder(length) {
-    this.inputLength = length;
-  },
-  get lengthOrder() {
-    return this.inputLength;
-  },
-  "inputHeight": 0,
-  set heightOrder(height) {
-    this.inputHeight = height;
-  },
-  get heightOrder() {
-    return this.inputHeight;
-  },
-  "selectMaterial": "choose",
-  set materialOrder(material) {
-    this.selectMaterial = material;
-  },
-  get materialOrder() {
-    return this.selectMaterial;
-  },
-  "checkboxInstalling": false,
-  set installOrder(install) {
-    this.checkboxInstalling = install;
-  },
-  get installOrder() {
-    return this.checkboxInstalling;
-  },
-  "price": 0,
-  set priceOrder(price) {
-    this.price = price;
-  },
-  get priceOrder() {
-    return this.price;
-  },
-  "inputName": "",
-  set nameUser(name) {
-    this.inputName = name;
-  },
-  get nameUser() {
-    return this.inputName;
-  },
-  "inputMail": "",
-  set mailUser(mail) {
-    this.inputMail = mail;
-  },
-  get mailUser() {
-    return this.inputMail;
-  },
-  "inputPhone": "",
-  set phoneUser(phone) {
-    this.inputPhone = phone;
-  },
-  get phoneUser() {
-    return this.inputPhone;
-  },
-}*/
 
-const calcArea = ({name: this._name, value}) => ()
-
-const store = {
-  inputLength: new Input({
-  name: 'inputLength', 
-  value: '', 
-  getCb: () => {}, 
-  setCb: calcArea,
-  })
-}
+const store = {}
+const calcArea = () => {
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value;
+  console.log(store.borderArea.value);
+  console.log(store.inputLength.value);
+};
 
 class Input {
-  
-  constructor({value, name, getCb, setSb}) {
+  constructor({value, name, getCb, setCb}) {
     this._value = value;
     this._name = name;
     this._getCb = getCb;
-    this._setCb = setSb;
+    this._setCb = setCb;
   }
   
   get value() {
@@ -122,9 +59,12 @@ class Input {
   }
   
   set value(value) {
-    this._value = value;
-    if (typeof this._setCb == 'function') {
-      this._setCb({name: this._name, value});
+    this._value = +value;
+    if (typeof this._setCb === 'function') {
+      this._setCb({
+        name: this._name, 
+        value: this._value,
+      });
     }
   }
   
@@ -144,15 +84,38 @@ class Input {
     this._getCb = getCb;
   }
   
-  get setSb() {
-    return this._setSb;
+  get setCb() {
+    return this._setCb;
   }
   
-  set setSb(setSb) {
-    this._setSb = setSb;
+  set setCb(setCb) {
+    this._setCb = setCb;
   }
-  
 }
+
+store.inputLength = new Input({
+  name: 'inputLength',
+  value: 0,
+  setCb: calcArea,
+});
+
+store.inputHeight = new Input({
+  name: 'inputHeight',
+  value: 0,
+  setCb: calcArea,
+});
+
+store.borderArea = new Input({
+  name: 'borderArea',
+  value: 0,
+});
+
+//store.inputLength.value = '20';
+//store.inputHeight.value = '10';
+console.log(store.borderArea.value);
+//console.log(store);
+console.log(store.inputLength.value);
+console.log(store.inputHeight.value);
 
 //length.addEventListener("change", checkValue);
 //height.addEventListener("change", checkValue);
@@ -197,7 +160,7 @@ function checkLength(evt) {
   store.lengthOrder = item.value;
   store.price = store.inputLength * store.inputHeight;
   PRICE.textContent = store.price;
-  console.log(store.price);
+  //console.log(store.price);
 }
 
 function checkHeight(evt) {
@@ -206,7 +169,7 @@ function checkHeight(evt) {
   store.inputHeight = item.value;
   store.price = store.inputLength * store.inputHeight;
   PRICE.textContent = store.price;
-  console.log(store.price);
+  //console.log(store.price);
 }
 
 function checkMaterial(evt) {
