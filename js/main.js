@@ -27,9 +27,11 @@ const getPriceByValue = function(value) {
   console.log(MATERIALS.value);
 }; 
 
-const handleValueChange = (fieldName) => (evt) => {
+const getValueChangeHandler = (fieldName) => (evt) => {
   evt.preventDefault;
   store[fieldName].value = evt.currentTarget.value;
+  console.log(store[fieldName].value);
+  console.log(store[fieldName]);
 };
 
 let length = document.querySelector("#length");
@@ -44,7 +46,9 @@ let outputText = `Вы укомплектовали забор длинной ${
 
 const store = {}
 const calcArea = () => {
-  store.borderArea.value = store.inputLength.value * store.inputHeight.value * store.chooseMaterial.value;
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value * ((MATERIALS[store.chooseMaterial.value] || {}).price || 0);
+  console.log(store.borderArea.value);
+  console.log({ m: MATERIALS, v: store.chooseMaterial.value, mv: MATERIALS[store.chooseMaterial.value]});
 };
 const SetPriceOrder = () => {
   PRICE.textContent = store.borderArea.value;
@@ -117,7 +121,7 @@ store.borderArea = new Input({
 
 store.chooseMaterial = new Input({
   name: 'chooseMaterial',
-  value: 0,
+  value: '',
   setCb: calcArea,
 })
 
@@ -128,8 +132,8 @@ store.chooseMaterial = new Input({
 //material.addEventListener("change", checkValue);
 material.addEventListener("change", handleMaterialChange);
 checkbox.addEventListener("change", checkInstalling);
-height.addEventListener("change", handleValueChange('inputHeight'));
-length.addEventListener("change", handleValueChange('inputLength'));
+height.addEventListener("change", getValueChangeHandler('inputHeight'));
+length.addEventListener("change", getValueChangeHandler('inputLength'));
 //INPUT_CONTAINER_SECOND.addEventListener("change", checkSecondValue);
 name.addEventListener("change", checkSecondValue);
 mail.addEventListener("change", checkSecondValue);
@@ -174,9 +178,7 @@ function handleHeightChange(evt) {
 function handleMaterialChange(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
-  if (item.value = store.chooseMaterial.value) 
   store.chooseMaterial.value = item.value;
-  console.log(store.chooseMaterial.value);
   console.log(item.value);
 }
 
