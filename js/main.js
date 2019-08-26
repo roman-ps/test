@@ -13,18 +13,24 @@ const PRICE = document.querySelector(".price--red");
 const METERS = document.querySelector(".item__measure");
 const INPUT_CONTAINER_SECOND = CONTAINER_SECOND.querySelectorAll(".item__input");
 const INSTALLATION = 200;
+
 const MATERIALS = {
-  "decking": 400,
-  "modules": 500,
-  "concrete": 700,
-  "grid": 200,
-  "choose": 0
+  decking: {name: 'Профнастил', price: 400},
+  modules: {name: 'Модуль', price: 500},
+  concrete: {name: 'Бетон', price: 700},
+  grid: {name: 'Сетка', price: 200},
 };
 
 // определение цены на материал
 const getPriceByValue = function(value) {
-  return MATERIALS[value] || MATERIALS.choose;
-} 
+  return MATERIALS[value];
+  console.log(MATERIALS.value);
+}; 
+
+const handleValueChange = (fieldName) => (evt) => {
+  evt.preventDefault;
+  store[fieldName].value = evt.currentTarget.value;
+};
 
 let length = document.querySelector("#length");
 let height = document.querySelector("#height");
@@ -34,17 +40,15 @@ let name = document.querySelector("#name");
 let mail = document.querySelector("#mail");
 let phone = document.querySelector("#phone");
 let outputData = document.querySelector(".item__output");
-let lengthValue = length.value;
-let heightValue = height.value;
-let materialValue = material.value;
-let outputText = `Вы укомплектовали забор длинной ${lengthValue} метров и высотой ${heightValue} метра из материала ${materialValue} на сумму ${getPrice(lengthValue, heightValue, getPrice(lengthValue, heightValue, getPriceByValue(material.value)))} &#8381;`;
+let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
 
 const store = {}
 const calcArea = () => {
-  store.borderArea.value = store.inputLength.value * store.inputHeight.value;
-  console.log(store.borderArea.value);
-  console.log(store.inputLength.value);
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value * store.chooseMaterial.value;
 };
+const SetPriceOrder = () => {
+  PRICE.textContent = store.borderArea.value;
+}
 
 class Input {
   constructor({value, name, getCb, setCb}) {
@@ -108,23 +112,24 @@ store.inputHeight = new Input({
 store.borderArea = new Input({
   name: 'borderArea',
   value: 0,
+  setCb: SetPriceOrder,
 });
 
-//store.inputLength.value = '20';
-//store.inputHeight.value = '10';
-console.log(store.borderArea.value);
-//console.log(store);
-console.log(store.inputLength.value);
-console.log(store.inputHeight.value);
+store.chooseMaterial = new Input({
+  name: 'chooseMaterial',
+  value: 0,
+  setCb: calcArea,
+})
+
 
 //length.addEventListener("change", checkValue);
 //height.addEventListener("change", checkValue);
 //checkbox.addEventListener("change", checkValue);
 //material.addEventListener("change", checkValue);
-material.addEventListener("change", checkMaterial);
+material.addEventListener("change", handleMaterialChange);
 checkbox.addEventListener("change", checkInstalling);
-height.addEventListener("change", checkHeight);
-length.addEventListener("change", checkLength);
+height.addEventListener("change", handleValueChange('inputHeight'));
+length.addEventListener("change", handleValueChange('inputLength'));
 //INPUT_CONTAINER_SECOND.addEventListener("change", checkSecondValue);
 name.addEventListener("change", checkSecondValue);
 mail.addEventListener("change", checkSecondValue);
@@ -154,39 +159,30 @@ function checkValue(){
   }
 }
 
-function checkLength(evt) {
+function handleLengthChange(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
-  store.lengthOrder = item.value;
-  store.price = store.inputLength * store.inputHeight;
-  PRICE.textContent = store.price;
-  //console.log(store.price);
+  store.inputLength.value = item.value;
 }
 
-function checkHeight(evt) {
+function handleHeightChange(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
-  store.inputHeight = item.value;
-  store.price = store.inputLength * store.inputHeight;
-  PRICE.textContent = store.price;
-  //console.log(store.price);
+  store.inputHeight.value = item.value;
 }
 
-function checkMaterial(evt) {
+function handleMaterialChange(evt) {
   evt.preventDefault;
   let item = evt.currentTarget;
-  store.selectMaterial = item.value;
+  if (item.value = store.chooseMaterial.value) 
+  store.chooseMaterial.value = item.value;
+  console.log(store.chooseMaterial.value);
   console.log(item.value);
 }
 
 function checkInstalling(evt) {
   evt.preventDefault;
-  //let item = evt.currentTarget;
-  //if (checkbox.checked == true) {
-  //  item = !item.value;
-  //}
   store.checkboxInstalling = !store.checkboxInstalling;
-  console.log(store);
 }
 
 // проверка заполненности полей 2 части формы
