@@ -21,17 +21,11 @@ const MATERIALS = {
   grid: {name: 'Сетка', price: 200},
 };
 
-// определение цены на материал
-const getPriceByValue = function(value) {
-  return MATERIALS[value];
-  console.log(MATERIALS.value);
-}; 
-
+// определение выбранного материала
 const getValueChangeHandler = (fieldName) => (evt) => {
   evt.preventDefault;
   store[fieldName].value = evt.currentTarget.value;
   console.log(store[fieldName].value);
-  console.log(store[fieldName]);
 };
 
 let length = document.querySelector("#length");
@@ -45,11 +39,14 @@ let outputData = document.querySelector(".item__output");
 let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
 
 const store = {}
+
+// вычисление суммы заказа
 const calcArea = () => {
-  store.borderArea.value = store.inputLength.value * store.inputHeight.value * ((MATERIALS[store.chooseMaterial.value] || {}).price || 0);
-  console.log(store.borderArea.value);
-  console.log({ m: MATERIALS, v: store.chooseMaterial.value, mv: MATERIALS[store.chooseMaterial.value]});
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value * (((MATERIALS[store.chooseMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value === "on"?INSTALLATION:0));
+  console.log(store.checkboxInstalling.value);
 };
+
+// вывод суммы заказа
 const SetPriceOrder = () => {
   PRICE.textContent = store.borderArea.value;
 }
@@ -67,7 +64,7 @@ class Input {
   }
   
   set value(value) {
-    this._value = +value;
+    this._value = value;
     if (typeof this._setCb === 'function') {
       this._setCb({
         name: this._name, 
@@ -121,17 +118,19 @@ store.borderArea = new Input({
 
 store.chooseMaterial = new Input({
   name: 'chooseMaterial',
-  value: '',
+  value: 0,
   setCb: calcArea,
-})
+});
+
+store.checkboxInstalling = new Input({
+  name: 'checkboxInstalling',
+  value: 0,
+  setCb: calcArea,
+});
 
 
-//length.addEventListener("change", checkValue);
-//height.addEventListener("change", checkValue);
-//checkbox.addEventListener("change", checkValue);
-//material.addEventListener("change", checkValue);
-material.addEventListener("change", handleMaterialChange);
-checkbox.addEventListener("change", checkInstalling);
+material.addEventListener("change", getValueChangeHandler('chooseMaterial'));
+checkbox.addEventListener("change", getValueChangeHandler('checkboxInstalling'));
 height.addEventListener("change", getValueChangeHandler('inputHeight'));
 length.addEventListener("change", getValueChangeHandler('inputLength'));
 //INPUT_CONTAINER_SECOND.addEventListener("change", checkSecondValue);
@@ -163,28 +162,9 @@ function checkValue(){
   }
 }
 
-function handleLengthChange(evt) {
-  evt.preventDefault;
-  let item = evt.currentTarget;
-  store.inputLength.value = item.value;
-}
-
-function handleHeightChange(evt) {
-  evt.preventDefault;
-  let item = evt.currentTarget;
-  store.inputHeight.value = item.value;
-}
-
-function handleMaterialChange(evt) {
-  evt.preventDefault;
-  let item = evt.currentTarget;
-  store.chooseMaterial.value = item.value;
-  console.log(item.value);
-}
-
 function checkInstalling(evt) {
   evt.preventDefault;
-  store.checkboxInstalling = !store.checkboxInstalling;
+  store.checkboxInstalling.value = !store.checkboxInstalling.value;
 }
 
 // проверка заполненности полей 2 части формы
@@ -193,16 +173,6 @@ function checkSecondValue(){
     BTN_SUBMIT.disabled = false;
     outputData.classList.toggle("hidden");
     outputData.innerHTML = outputText;
-  }
-}
-
-// вычисляем сумму заказа
-function getPrice(length, height, getPrice){
-  if (checkbox.checked) {
-    return ((length * height) * (getPrice + INSTALLATION));
-  }
-  else {
-    return (length * height * getPrice);
   }
 }
 
