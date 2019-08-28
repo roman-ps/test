@@ -21,12 +21,18 @@ const MATERIALS = {
   grid: {name: 'Сетка', price: 200},
 };
 
-// определение выбранного материала
+// присваиваем в стор значение value 
 const getValueChangeHandler = (fieldName) => (evt) => {
   evt.preventDefault;
   store[fieldName].value = evt.currentTarget.value;
-  console.log(store[fieldName].value);
 };
+
+// присваиваем в стор значение чекбокса
+function checkInstalling(evt) {
+  evt.preventDefault;
+  store.checkboxInstalling.value = Number(INSTALL.checked);
+}
+
 
 let length = document.querySelector("#length");
 let height = document.querySelector("#height");
@@ -42,8 +48,7 @@ const store = {}
 
 // вычисление суммы заказа
 const calcArea = () => {
-  store.borderArea.value = store.inputLength.value * store.inputHeight.value * (((MATERIALS[store.chooseMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value === "on"?INSTALLATION:0));
-  console.log(store.checkboxInstalling.value);
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value * (((MATERIALS[store.chooseMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value == 1 ? INSTALLATION : 0));
 };
 
 // вывод суммы заказа
@@ -124,23 +129,15 @@ store.chooseMaterial = new Input({
 
 store.checkboxInstalling = new Input({
   name: 'checkboxInstalling',
-  value: 0,
+  value: '',
   setCb: calcArea,
 });
 
 
 material.addEventListener("change", getValueChangeHandler('chooseMaterial'));
-checkbox.addEventListener("change", getValueChangeHandler('checkboxInstalling'));
+checkbox.addEventListener("change", checkInstalling);
 height.addEventListener("change", getValueChangeHandler('inputHeight'));
 length.addEventListener("change", getValueChangeHandler('inputLength'));
-//INPUT_CONTAINER_SECOND.addEventListener("change", checkSecondValue);
-name.addEventListener("change", checkSecondValue);
-mail.addEventListener("change", checkSecondValue);
-phone.addEventListener("change", checkSecondValue);
-BTN_NEXT.addEventListener("click", changeFirstForm);
-BTN_SUBMIT.addEventListener("click", changeSecondForm);
-BTN_PREV.addEventListener("click", openFirstForm);
-BTN_CLOSE.addEventListener("click", closePopup);
 
 // вычисляем нужное окончание слова
 function bowMeters(number, one, two, five){
@@ -151,50 +148,4 @@ function bowMeters(number, one, two, five){
   } else {
     return five
   };
-}
-
-// проверка заполненности полей формы
-function checkValue(){
-  METERS.textContent = bowMeters(length.value, "метр", "метра", "метров");
-  PRICE.textContent = getPrice(length.value, height.value, getPriceByValue(material.value));
-  if ((length.value != '') && (height.value != '') && (getPriceByValue(material.value) > 199)) {
-    BTN_NEXT.disabled = false;
-  }
-}
-
-function checkInstalling(evt) {
-  evt.preventDefault;
-  store.checkboxInstalling.value = !store.checkboxInstalling.value;
-}
-
-// проверка заполненности полей 2 части формы
-function checkSecondValue(){
-  if ((name.value != '') && (mail.value != '') && (phone.value != '')) {
-    BTN_SUBMIT.disabled = false;
-    outputData.classList.toggle("hidden");
-    outputData.innerHTML = outputText;
-  }
-}
-
-function changeFirstForm(evt){
-  evt.preventDefault;
-  CONTAINER_FIRST.classList.toggle("hidden");
-  CONTAINER_SECOND.classList.toggle("hidden");
-}
-
-function changeSecondForm(evt){
-  evt.preventDefault;
-  CONTAINER_SECOND.classList.toggle("hidden");
-  POPUP.classList.toggle("hidden");
-}
-
-function openFirstForm(evt){
-  evt.preventDefault;
-  CONTAINER_SECOND.classList.toggle("hidden");
-  CONTAINER_FIRST.classList.toggle("hidden");
-}
-
-function closePopup(evt) {
-  evt.preventDefault;
-  POPUP.classList.toggle("hidden");
 }
