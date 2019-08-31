@@ -12,7 +12,7 @@ const POPUP = document.querySelector(".popup");
 const PRICE = document.querySelector(".price--red");
 const METERS = document.querySelector(".item__measure");
 const INPUT_CONTAINER_SECOND = CONTAINER_SECOND.querySelectorAll(".item__input");
-const INSTALLATION = 200;
+const INSTALLATION_PRICE = 200;
 
 const MATERIALS = {
   decking: {name: 'Профнастил', price: 400},
@@ -48,8 +48,13 @@ const store = {}
 
 // вычисление суммы заказа
 const calcArea = () => {
-  store.borderArea.value = store.inputLength.value * store.inputHeight.value * (((MATERIALS[store.chooseMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value == 1 ? INSTALLATION : 0));
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value * getPrice();
 };
+
+// возвращаем цену за материал и монтаж
+function getPrice(){
+  return (((MATERIALS[store.chooseMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value * INSTALLATION_PRICE));
+}
 
 // вывод суммы заказа
 const SetPriceOrder = () => {
