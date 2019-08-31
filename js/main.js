@@ -28,9 +28,9 @@ const getValueChangeHandler = (fieldName) => (evt) => {
 };
 
 // присваиваем в стор значение чекбокса
-function checkInstalling(evt) {
+const checkInstalling = (fieldName) => (evt) => {
   evt.preventDefault;
-  store.checkboxInstalling.value = Number(INSTALL.checked);
+  store[fieldName].value = Number(evt.currentTarget.checked);
 }
 
 
@@ -140,7 +140,7 @@ store.checkboxInstalling = new Input({
 
 
 material.addEventListener("change", getValueChangeHandler('chooseMaterial'));
-checkbox.addEventListener("change", checkInstalling);
+checkbox.addEventListener("change", checkInstalling('checkboxInstalling'));
 height.addEventListener("change", getValueChangeHandler('inputHeight'));
 length.addEventListener("change", getValueChangeHandler('inputLength'));
 
