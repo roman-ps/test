@@ -27,6 +27,14 @@ const getValueChangeHandler = (fieldName) => (evt) => {
   store[fieldName].value = evt.currentTarget.value;
 };
 
+function checkButton(){
+  if (store.inputLength.value > 0 && store.inputHeight.value > 0 && store.chooseMaterial.value != 0) {
+    BTN_NEXT.disabled = false;
+  } else {
+    BTN_NEXT.disabled = true;
+  }
+}
+
 // присваиваем в стор значение чекбокса
 const checkInstalling = (fieldName) => (evt) => {
   evt.preventDefault;
@@ -49,6 +57,7 @@ const store = {}
 // вычисление суммы заказа
 const calcArea = () => {
   store.borderArea.value = store.inputLength.value * store.inputHeight.value * getPrice();
+  checkButton();
 };
 
 // возвращаем цену за материал и монтаж
@@ -136,6 +145,12 @@ store.checkboxInstalling = new Input({
   name: 'checkboxInstalling',
   value: '',
   setCb: calcArea,
+});
+
+store.checkBtn = new Input({
+  name: 'checkBtn',
+  value: 0,
+  setCb: checkButton,
 });
 
 
