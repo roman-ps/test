@@ -12,18 +12,27 @@ const POPUP = document.querySelector(".popup");
 const PRICE = document.querySelector(".price--red");
 const METERS = document.querySelector(".item__measure");
 const INPUT_CONTAINER_SECOND = CONTAINER_SECOND.querySelectorAll(".item__input");
+const INSTALLATION_PRICE = 200;
+
 const MATERIALS = {
-  "decking": 400,
-  "modules": 500,
-  "concrete": 700,
-  "grid": 200,
-  "choose": 0
+  decking: {name: 'Профнастил', price: 400},
+  modules: {name: 'Модуль', price: 500},
+  concrete: {name: 'Бетон', price: 700},
+  grid: {name: 'Сетка', price: 200},
 };
 
-// определение цены на материал
-const getPriceByValue = function(value) {
-  return MATERIALS[value] || MATERIALS.choose;
-} 
+// присваиваем в стор значение value 
+const getValueChangeHandler = (fieldName) => (evt) => {
+  evt.preventDefault;
+  store[fieldName].value = evt.currentTarget.value;
+};
+
+// присваиваем в стор значение чекбокса
+const checkInstalling = (fieldName) => (evt) => {
+  evt.preventDefault;
+  store[fieldName].value = Number(evt.currentTarget.checked);
+}
+
 
 let length = document.querySelector("#length");
 let height = document.querySelector("#height");
@@ -32,71 +41,116 @@ let checkbox = document.querySelector("#checkbox");
 let name = document.querySelector("#name");
 let mail = document.querySelector("#mail");
 let phone = document.querySelector("#phone");
+let outputData = document.querySelector(".item__output");
+let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
 
-length.addEventListener("change", checkValue);
-height.addEventListener("change", checkValue);
-material.addEventListener("change", checkValue);
-checkbox.addEventListener("change", checkValue);
-//INPUT_CONTAINER_SECOND.addEventListener("change", checkSecondValue);
-name.addEventListener("change", checkSecondValue);
-mail.addEventListener("change", checkSecondValue);
-phone.addEventListener("change", checkSecondValue);
-BTN_NEXT.addEventListener("click", changeFirstForm);
-BTN_SUBMIT.addEventListener("click", changeSecondForm);
-BTN_PREV.addEventListener("click", openFirstForm);
-BTN_CLOSE.addEventListener("click", closePopup);
+const store = {}
+
+// вычисление суммы заказа
+const calcArea = () => {
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value * getPrice();
+};
+
+// возвращаем цену за материал и монтаж
+function getPrice(){
+  return (((MATERIALS[store.chooseMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value * INSTALLATION_PRICE));
+}
+
+// вывод суммы заказа
+const SetPriceOrder = () => {
+  PRICE.textContent = store.borderArea.value;
+}
+
+class Input {
+  constructor({value, name, getCb, setCb}) {
+    this._value = value;
+    this._name = name;
+    this._getCb = getCb;
+    this._setCb = setCb;
+  }
+  
+  get value() {
+    return this._value;
+  }
+  
+  set value(value) {
+    this._value = value;
+    if (typeof this._setCb === 'function') {
+      this._setCb({
+        name: this._name, 
+        value: this._value,
+      });
+    }
+  }
+  
+  get name() {
+    return this._name;
+  }
+  
+  set name(name) {
+    this._name = name;
+  }
+  
+  get getCb() {
+    return this._getCb;
+  }
+  
+  set getCb(getCb) {
+    this._getCb = getCb;
+  }
+  
+  get setCb() {
+    return this._setCb;
+  }
+  
+  set setCb(setCb) {
+    this._setCb = setCb;
+  }
+}
+
+store.inputLength = new Input({
+  name: 'inputLength',
+  value: 0,
+  setCb: calcArea,
+});
+
+store.inputHeight = new Input({
+  name: 'inputHeight',
+  value: 0,
+  setCb: calcArea,
+});
+
+store.borderArea = new Input({
+  name: 'borderArea',
+  value: 0,
+  setCb: SetPriceOrder,
+});
+
+store.chooseMaterial = new Input({
+  name: 'chooseMaterial',
+  value: 0,
+  setCb: calcArea,
+});
+
+store.checkboxInstalling = new Input({
+  name: 'checkboxInstalling',
+  value: '',
+  setCb: calcArea,
+});
+
+
+material.addEventListener("change", getValueChangeHandler('chooseMaterial'));
+checkbox.addEventListener("change", checkInstalling('checkboxInstalling'));
+height.addEventListener("change", getValueChangeHandler('inputHeight'));
+length.addEventListener("change", getValueChangeHandler('inputLength'));
 
 // вычисляем нужное окончание слова
 function bowMeters(number, one, two, five){
-  if (number % 10 == 1 && number % 100 != 11) {return one} else 
-    if (number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {return two} else {return five};
-}
-
-// проверка заполненности полей формы
-function checkValue(){
-  METERS.textContent = bowMeters(length.value, "метр", "метра", "метров");
-  getPrice();
-  if ((length.value != '') && (height.value != '') && (getPriceByValue(material.value) > 199)) {
-    BTN_NEXT.disabled = false;
-  }
-}
-
-// проверка заполненности полей 2 части формы
-function checkSecondValue(){
-  if ((name.value != '') && (mail.value != '') && (phone.value != '')) {
-    BTN_SUBMIT.disabled = false;
-  }
-}
-
-// вычисляем сумму заказа
-function getPrice(){
-  if (checkbox.checked) {
-    PRICE.textContent = (length.value * height.value) * (getPriceByValue(material.value) + 200);
-  }
-  else {
-    PRICE.textContent = (length.value * height.value) * getPriceByValue(material.value);
-  }
-}
-
-function changeFirstForm(evt){
-  evt.preventDefault;
-  CONTAINER_FIRST.classList.toggle("hidden");
-  CONTAINER_SECOND.classList.toggle("hidden");
-}
-
-function changeSecondForm(evt){
-  evt.preventDefault;
-  CONTAINER_SECOND.classList.toggle("hidden");
-  POPUP.classList.toggle("hidden");
-}
-
-function openFirstForm(evt){
-  evt.preventDefault;
-  CONTAINER_SECOND.classList.toggle("hidden");
-  CONTAINER_FIRST.classList.toggle("hidden");
-}
-
-function closePopup(evt) {
-  evt.preventDefault;
-  POPUP.classList.toggle("hidden");
+  if (number % 10 == 1 && number % 100 != 11) {
+    return one
+  } else if (number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {
+    return two
+  } else {
+    return five
+  };
 }
