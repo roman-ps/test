@@ -13,6 +13,16 @@ const PRICE = document.querySelector(".price--red");
 const METERS = document.querySelector(".item__measure");
 const INPUT_CONTAINER_SECOND = CONTAINER_SECOND.querySelectorAll(".item__input");
 const INSTALLATION_PRICE = 200;
+let length = document.querySelector("#length");
+let height = document.querySelector("#height");
+let material = document.querySelector("#material");
+let checkbox = document.querySelector("#checkbox");
+let name = document.querySelector("#name");
+let mail = document.querySelector("#mail");
+let phone = document.querySelector("#phone");
+let outputData = document.querySelector(".item__output");
+let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
+const store = {}
 
 const MATERIALS = {
   decking: {name: 'Профнастил', price: 400},
@@ -27,10 +37,6 @@ const getValueChangeHandler = (fieldName) => (evt) => {
   store[fieldName].value = evt.currentTarget.value;
 };
 
-function checkButton(){
-  store.submitDisabled.value = (store.inputLength.value > 0 && store.inputHeight.value > 0 && store.chooseMaterial.value != 'choose');
-}
-
 function checkBtn(){
   BTN_NEXT.disabled = !store.submitDisabled.value;
 }
@@ -42,40 +48,28 @@ const checkInstalling = (fieldName) => (evt) => {
 }
 
 
-let length = document.querySelector("#length");
-let height = document.querySelector("#height");
-let material = document.querySelector("#material");
-let checkbox = document.querySelector("#checkbox");
-let name = document.querySelector("#name");
-let mail = document.querySelector("#mail");
-let phone = document.querySelector("#phone");
-let outputData = document.querySelector(".item__output");
-let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
-
-const store = {}
-
 // вычисление суммы заказа
 const calcArea = () => {
-  store.borderArea.value = store.inputLength.value * store.inputHeight.value * getPrice();
-  checkButton();
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value * calcPrice();
+  store.submitDisabled.value = (store.inputLength.value > 0 && store.inputHeight.value > 0 && store.selectedMaterial.value != 'choose');
 };
 
 // возвращаем цену за материал и монтаж
-function getPrice(){
-  return (((MATERIALS[store.chooseMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value * INSTALLATION_PRICE));
+function calcPrice(){
+  return (((MATERIALS[store.selectedMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value * INSTALLATION_PRICE));
 }
 
 // вывод суммы заказа
-const SetPriceOrder = () => {
+const renderPrice = () => {
   PRICE.textContent = store.borderArea.value;
 }
 
 class Input {
-  constructor({value, name, getCb, setterHook}) {
+  constructor({value, name, getterHook, setterHook}) {
     this._value = value;
     this._name = name;
-    this._getCb = getCb;
-    this._setCb = setterHook;
+    this._getterHook = getterHook;
+    this._setterHook = setterHook;
   }
   
   get value() {
@@ -84,8 +78,8 @@ class Input {
   
   set value(value) {
     this._value = value;
-    if (typeof this._setCb === 'function') {
-      this._setCb({
+    if (typeof this._setterHook === 'function') {
+      this._setterHook({
         name: this._name, 
         value: this._value,
       });
@@ -100,20 +94,20 @@ class Input {
     this._name = name;
   }
   
-  get getCb() {
-    return this._getCb;
+  get getterHook() {
+    return this._getterHook;
   }
   
-  set getCb(getCb) {
-    this._getCb = getCb;
+  set getterHook(getterHook) {
+    this._getterHook = getterHook;
   }
   
   get setterHook() {
-    return this._setCb;
+    return this._setterHook;
   }
   
   set setterHook(setterHook) {
-    this._setCb = setterHook;
+    this._setterHook = setterHook;
   }
 }
 
@@ -132,11 +126,11 @@ store.inputHeight = new Input({
 store.borderArea = new Input({
   name: 'borderArea',
   value: 0,
-  setterHook: SetPriceOrder,
+  setterHook: renderPrice,
 });
 
-store.chooseMaterial = new Input({
-  name: 'chooseMaterial',
+store.selectedMaterial = new Input({
+  name: 'selectedMaterial',
   value: 'choose',
   setterHook: calcArea,
 });
@@ -154,7 +148,7 @@ store.submitDisabled = new Input({
 });
 
 
-material.addEventListener("change", getValueChangeHandler('chooseMaterial'));
+material.addEventListener("change", getValueChangeHandler('selectedMaterial'));
 checkbox.addEventListener("change", checkInstalling('checkboxInstalling'));
 height.addEventListener("change", getValueChangeHandler('inputHeight'));
 length.addEventListener("change", getValueChangeHandler('inputLength'));
