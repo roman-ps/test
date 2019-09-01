@@ -28,11 +28,11 @@ const getValueChangeHandler = (fieldName) => (evt) => {
 };
 
 function checkButton(){
-  if (store.inputLength.value > 0 && store.inputHeight.value > 0 && store.chooseMaterial.value != 0) {
-    BTN_NEXT.disabled = false;
-  } else {
-    BTN_NEXT.disabled = true;
-  }
+  store.submitDisabled.value = (store.inputLength.value > 0 && store.inputHeight.value > 0 && store.chooseMaterial.value != 'choose');
+}
+
+function checkBtn(){
+  BTN_NEXT.disabled = !store.submitDisabled.value;
 }
 
 // присваиваем в стор значение чекбокса
@@ -71,11 +71,11 @@ const SetPriceOrder = () => {
 }
 
 class Input {
-  constructor({value, name, getCb, setCb}) {
+  constructor({value, name, getCb, setterHook}) {
     this._value = value;
     this._name = name;
     this._getCb = getCb;
-    this._setCb = setCb;
+    this._setCb = setterHook;
   }
   
   get value() {
@@ -108,49 +108,49 @@ class Input {
     this._getCb = getCb;
   }
   
-  get setCb() {
+  get setterHook() {
     return this._setCb;
   }
   
-  set setCb(setCb) {
-    this._setCb = setCb;
+  set setterHook(setterHook) {
+    this._setCb = setterHook;
   }
 }
 
 store.inputLength = new Input({
   name: 'inputLength',
   value: 0,
-  setCb: calcArea,
+  setterHook: calcArea,
 });
 
 store.inputHeight = new Input({
   name: 'inputHeight',
   value: 0,
-  setCb: calcArea,
+  setterHook: calcArea,
 });
 
 store.borderArea = new Input({
   name: 'borderArea',
   value: 0,
-  setCb: SetPriceOrder,
+  setterHook: SetPriceOrder,
 });
 
 store.chooseMaterial = new Input({
   name: 'chooseMaterial',
-  value: 0,
-  setCb: calcArea,
+  value: 'choose',
+  setterHook: calcArea,
 });
 
 store.checkboxInstalling = new Input({
   name: 'checkboxInstalling',
   value: '',
-  setCb: calcArea,
+  setterHook: calcArea,
 });
 
-store.checkBtn = new Input({
-  name: 'checkBtn',
+store.submitDisabled = new Input({
+  name: 'submitDisabled',
   value: 0,
-  setCb: checkButton,
+  setterHook: checkBtn,
 });
 
 
