@@ -5,23 +5,21 @@ const BTN_NEXT = document.querySelector(".btn--next");
 const BTN_PREV = document.querySelector(".btn--prev");
 const BTN_SUBMIT = document.querySelector(".btn--submit");
 const BTN_CLOSE = document.querySelector(".btn--close");
-const INSTALL = document.querySelector(".checkbox--install");
 const CONTAINER_FIRST = document.querySelector(".container--first");
 const CONTAINER_SECOND = document.querySelector(".container--second");
 const POPUP = document.querySelector(".popup");
 const PRICE = document.querySelector(".price--red");
 const METERS = document.querySelector(".item__measure");
-const INPUT_CONTAINER_SECOND = CONTAINER_SECOND.querySelectorAll(".item__input");
-const INSTALLATION_PRICE = 200;
-let length = document.querySelector("#length");
-let height = document.querySelector("#height");
-let material = document.querySelector("#material");
-let checkbox = document.querySelector("#checkbox");
-let name = document.querySelector("#name");
-let mail = document.querySelector("#mail");
-let phone = document.querySelector("#phone");
-let outputData = document.querySelector(".item__output");
+const INPUT_LENGTH = document.querySelector("#length");
+const INPUT_HEIGHT = document.querySelector("#height");
+const SELECT_MATERIAL = document.querySelector("#material");
+const CHECKBOX_INSTALL = document.querySelector("#checkbox");
+const INPUT_NAME = document.querySelector("#name");
+const INPUT_MAIL = document.querySelector("#mail");
+const INPUT_PHONE = document.querySelector("#phone");
+const OUTPUT_FIELD = document.querySelector(".output");
 let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
+const INSTALLATION_PRICE = 200;
 const store = {}
 
 const MATERIALS = {
@@ -37,7 +35,8 @@ const getValueChangeHandler = (fieldName) => (evt) => {
   store[fieldName].value = evt.currentTarget.value;
 };
 
-function checkBtn(){
+// меняем состояние кнопки ДАЛЕЕ
+function switchBtnNext(){
   BTN_NEXT.disabled = !store.submitDisabled.value;
 }
 
@@ -49,13 +48,13 @@ const checkInstalling = (fieldName) => (evt) => {
 
 
 // вычисление суммы заказа
-const calcArea = () => {
-  store.borderArea.value = store.inputLength.value * store.inputHeight.value * calcPrice();
+const calcPriceCheckBtnNext = () => {
+  store.borderArea.value = store.inputLength.value * store.inputHeight.value * calcMaterials();
   store.submitDisabled.value = (store.inputLength.value > 0 && store.inputHeight.value > 0 && store.selectedMaterial.value != 'choose');
 };
 
 // возвращаем цену за материал и монтаж
-function calcPrice(){
+function calcMaterials(){
   return (((MATERIALS[store.selectedMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value * INSTALLATION_PRICE));
 }
 
@@ -114,13 +113,13 @@ class Input {
 store.inputLength = new Input({
   name: 'inputLength',
   value: 0,
-  setterHook: calcArea,
+  setterHook: calcPriceCheckBtnNext,
 });
 
 store.inputHeight = new Input({
   name: 'inputHeight',
   value: 0,
-  setterHook: calcArea,
+  setterHook: calcPriceCheckBtnNext,
 });
 
 store.borderArea = new Input({
@@ -132,26 +131,26 @@ store.borderArea = new Input({
 store.selectedMaterial = new Input({
   name: 'selectedMaterial',
   value: 'choose',
-  setterHook: calcArea,
+  setterHook: calcPriceCheckBtnNext,
 });
 
 store.checkboxInstalling = new Input({
   name: 'checkboxInstalling',
   value: '',
-  setterHook: calcArea,
+  setterHook: calcPriceCheckBtnNext,
 });
 
 store.submitDisabled = new Input({
   name: 'submitDisabled',
   value: 0,
-  setterHook: checkBtn,
+  setterHook: switchBtnNext,
 });
 
 
-material.addEventListener("change", getValueChangeHandler('selectedMaterial'));
-checkbox.addEventListener("change", checkInstalling('checkboxInstalling'));
-height.addEventListener("change", getValueChangeHandler('inputHeight'));
-length.addEventListener("change", getValueChangeHandler('inputLength'));
+INPUT_LENGTH.addEventListener("change", getValueChangeHandler('inputLength'));
+INPUT_HEIGHT.addEventListener("change", getValueChangeHandler('inputHeight'));
+SELECT_MATERIAL.addEventListener("change", getValueChangeHandler('selectedMaterial'));
+CHECKBOX_INSTALL.addEventListener("change", checkInstalling('checkboxInstalling'));
 
 // вычисляем нужное окончание слова
 function bowMeters(number, one, two, five){
