@@ -146,11 +146,47 @@ store.submitDisabled = new Input({
   setterHook: switchBtnNext,
 });
 
+store.switchFormScreens = new Input({
+  name: 'switchFormScreens',
+  value: 0,
+  setterHook: renderFormScreen,
+})
+
+function changeValueFormScreens(value){
+  return (number) => {
+    return fuck(value, number);
+  }
+}
+
+function fuck(value, number){
+  store.switchFormScreens.value = value + number;
+}
+
+const test = changeValueFormScreens(store.switchFormScreens.value);
+//const test2 = test(1);
+//const test3 = test(0);
+//console.log(store.switchFormScreens.value);
+//store.switchFormScreens.value = test3;
+
 
 INPUT_LENGTH.addEventListener("change", getValueChangeHandler('inputLength'));
 INPUT_HEIGHT.addEventListener("change", getValueChangeHandler('inputHeight'));
 SELECT_MATERIAL.addEventListener("change", getValueChangeHandler('selectedMaterial'));
 CHECKBOX_INSTALL.addEventListener("change", checkInstalling('checkboxInstalling'));
+//BTN_PREV.addEventListener("click", test2);
+
+BTN_NEXT.addEventListener("click", test);
+
+function renderFormScreen(){
+  if (store.switchFormScreens.value) {
+    CONTAINER_FIRST.classList.add("hidden");
+    CONTAINER_SECOND.classList.remove("hidden");
+  } else {
+    CONTAINER_FIRST.classList.remove("hidden");
+    CONTAINER_SECOND.classList.add("hidden");
+  }
+}
+
 
 // вычисляем нужное окончание слова
 function bowMeters(number, one, two, five){
