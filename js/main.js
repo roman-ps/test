@@ -163,21 +163,15 @@ function fuck(value, number){
 }
 
 const test = changeValueFormScreens(store.switchFormScreens.value);
-//const test2 = test(1);
-//const test3 = test(0);
-//console.log(store.switchFormScreens.value);
-//store.switchFormScreens.value = test3;
-
 
 INPUT_LENGTH.addEventListener("change", getValueChangeHandler('inputLength'));
 INPUT_HEIGHT.addEventListener("change", getValueChangeHandler('inputHeight'));
 SELECT_MATERIAL.addEventListener("change", getValueChangeHandler('selectedMaterial'));
 CHECKBOX_INSTALL.addEventListener("change", checkInstalling('checkboxInstalling'));
-//BTN_PREV.addEventListener("click", test2);
-
+BTN_PREV.addEventListener("click", test);
 BTN_NEXT.addEventListener("click", test);
 
-function renderFormScreen(){
+/*function renderFormScreen(){
   if (store.switchFormScreens.value) {
     CONTAINER_FIRST.classList.add("hidden");
     CONTAINER_SECOND.classList.remove("hidden");
@@ -185,6 +179,11 @@ function renderFormScreen(){
     CONTAINER_FIRST.classList.remove("hidden");
     CONTAINER_SECOND.classList.add("hidden");
   }
+}*/
+
+function renderFormScreen(){
+  CONTAINER_FIRST.classList.toggle("hidden");
+  CONTAINER_SECOND.classList.toggle("hidden");
 }
 
 
