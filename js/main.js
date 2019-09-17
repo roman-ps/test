@@ -153,23 +153,24 @@ store.switchFormScreens = new Input({
 })
 
 function changeValueFormScreens(value){
-  return (number) => {
-    return fuck(value, number);
+  return () => {
+    return store.switchFormScreens.value += value;
   }
 }
 
+    //return fuck(value, number);
 function fuck(value, number){
-  store.switchFormScreens.value = value + number;
 }
 
-const test = changeValueFormScreens(store.switchFormScreens.value);
+const handlePrevScreen = changeValueFormScreens(-1);
+const handleNextScreen = changeValueFormScreens(1);
 
 INPUT_LENGTH.addEventListener("change", getValueChangeHandler('inputLength'));
 INPUT_HEIGHT.addEventListener("change", getValueChangeHandler('inputHeight'));
 SELECT_MATERIAL.addEventListener("change", getValueChangeHandler('selectedMaterial'));
 CHECKBOX_INSTALL.addEventListener("change", checkInstalling('checkboxInstalling'));
-BTN_PREV.addEventListener("click", test);
-BTN_NEXT.addEventListener("click", test);
+BTN_PREV.addEventListener("click", handlePrevScreen);
+BTN_NEXT.addEventListener("click", handleNextScreen);
 
 /*function renderFormScreen(){
   if (store.switchFormScreens.value) {
