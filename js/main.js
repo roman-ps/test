@@ -152,15 +152,13 @@ store.switchFormScreens = new Input({
   setterHook: renderFormScreen,
 })
 
-function changeValueFormScreens(value){
+/*function changeValueFormScreens(value){
   return () => {
     return store.switchFormScreens.value += value;
   }
-}
+}*/
 
-    //return fuck(value, number);
-function fuck(value, number){
-}
+let changeValueFormScreens = value => () => store.switchFormScreens.value += value;
 
 const handlePrevScreen = changeValueFormScreens(-1);
 const handleNextScreen = changeValueFormScreens(1);
@@ -171,16 +169,6 @@ SELECT_MATERIAL.addEventListener("change", getValueChangeHandler('selectedMateri
 CHECKBOX_INSTALL.addEventListener("change", checkInstalling('checkboxInstalling'));
 BTN_PREV.addEventListener("click", handlePrevScreen);
 BTN_NEXT.addEventListener("click", handleNextScreen);
-
-/*function renderFormScreen(){
-  if (store.switchFormScreens.value) {
-    CONTAINER_FIRST.classList.add("hidden");
-    CONTAINER_SECOND.classList.remove("hidden");
-  } else {
-    CONTAINER_FIRST.classList.remove("hidden");
-    CONTAINER_SECOND.classList.add("hidden");
-  }
-}*/
 
 function renderFormScreen(){
   CONTAINER_FIRST.classList.toggle("hidden");
