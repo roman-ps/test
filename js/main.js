@@ -21,6 +21,26 @@ const OUTPUT_FIELD = document.querySelector(".output");
 let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
 const INSTALLATION_PRICE = 200;
 const store = {}
+const SELECTORS = {
+  form: '.form',
+  btnNext: '.btn--next',
+  btnPrev: '.btn--prev',
+  btnSubmit: '.btn--submit',
+  btnClose: '.btn--close',
+  containerFirst: '.container--first',
+  containerSecond: '.container--second',
+  popup: '.popup',
+  price: '.price--red',
+  meters: '.item__measure',
+  inputLength: '.input__length',
+  inputHeight: '.input__height',
+  selectMaterial: '.material',
+  checkboxInstall: '.install',
+  inputName: '.input__name',
+  inputMail: '.input__mail',
+  inputPhone: '.input__phone',
+  outputField: '.output',
+}
 
 const MATERIALS = {
   decking: {name: 'Профнастил', price: 400},
