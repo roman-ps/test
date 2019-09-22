@@ -42,6 +42,18 @@ const SELECTORS = {
   outputField: '.output',
 }
 
+const NODES = {}
+
+function transferToNodes(){
+  let key = Object.keys(SELECTORS);
+  for (let i = 0; i < key.length; i++){
+    NODES[key[i]] = document.querySelector(SELECTORS[key[i]]);
+    console.log(key);
+    console.log(SELECTORS[key[i]]);
+  }
+}
+console.log(NODES.form);
+
 const MATERIALS = {
   decking: {name: 'Профнастил', price: 400},
   modules: {name: 'Модуль', price: 500},
@@ -65,7 +77,6 @@ const checkInstalling = (fieldName) => (evt) => {
   evt.preventDefault;
   store[fieldName].value = Number(evt.currentTarget.checked);
 }
-
 
 // вычисление суммы заказа
 const calcPriceCheckBtnNext = () => {
@@ -172,29 +183,24 @@ store.switchFormScreens = new Input({
   setterHook: renderFormScreen,
 })
 
-/*function changeValueFormScreens(value){
-  return () => {
-    return store.switchFormScreens.value += value;
-  }
-}*/
-
 let changeValueFormScreens = value => () => store.switchFormScreens.value += value;
 
 const handlePrevScreen = changeValueFormScreens(-1);
 const handleNextScreen = changeValueFormScreens(1);
 
 INPUT_LENGTH.addEventListener("change", getValueChangeHandler('inputLength'));
+//NODES.popup.addEventListener("change", getValueChangeHandler('inputLength'));
 INPUT_HEIGHT.addEventListener("change", getValueChangeHandler('inputHeight'));
 SELECT_MATERIAL.addEventListener("change", getValueChangeHandler('selectedMaterial'));
 CHECKBOX_INSTALL.addEventListener("change", checkInstalling('checkboxInstalling'));
 BTN_PREV.addEventListener("click", handlePrevScreen);
 BTN_NEXT.addEventListener("click", handleNextScreen);
+document.addEventListener("DOMContentLoaded", transferToNodes);
 
 function renderFormScreen(){
   CONTAINER_FIRST.classList.toggle("hidden");
   CONTAINER_SECOND.classList.toggle("hidden");
 }
-
 
 // вычисляем нужное окончание слова
 function bowMeters(number, one, two, five){
