@@ -48,11 +48,8 @@ function transferToNodes(){
   let key = Object.keys(SELECTORS);
   for (let i = 0; i < key.length; i++){
     NODES[key[i]] = document.querySelector(SELECTORS[key[i]]);
-    console.log(key);
-    console.log(SELECTORS[key[i]]);
   }
 }
-console.log(NODES.form);
 
 const MATERIALS = {
   decking: {name: 'Профнастил', price: 400},
@@ -92,53 +89,6 @@ function calcMaterials(){
 // вывод суммы заказа
 const renderPrice = () => {
   PRICE.textContent = store.borderArea.value;
-}
-
-class Input {
-  constructor({value, name, getterHook, setterHook}) {
-    this._value = value;
-    this._name = name;
-    this._getterHook = getterHook;
-    this._setterHook = setterHook;
-  }
-  
-  get value() {
-    return this._value;
-  }
-  
-  set value(value) {
-    this._value = value;
-    if (typeof this._setterHook === 'function') {
-      this._setterHook({
-        name: this._name, 
-        value: this._value,
-      });
-    }
-  }
-  
-  get name() {
-    return this._name;
-  }
-  
-  set name(name) {
-    this._name = name;
-  }
-  
-  get getterHook() {
-    return this._getterHook;
-  }
-  
-  set getterHook(getterHook) {
-    this._getterHook = getterHook;
-  }
-  
-  get setterHook() {
-    return this._setterHook;
-  }
-  
-  set setterHook(setterHook) {
-    this._setterHook = setterHook;
-  }
 }
 
 store.inputLength = new Input({
