@@ -91,43 +91,43 @@ const renderPrice = () => {
   PRICE.textContent = store.borderArea.value;
 }
 
-store.inputLength = new Input({
+store.inputLength = new StoreItem({
   name: 'inputLength',
   value: 0,
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.inputHeight = new Input({
+store.inputHeight = new StoreItem({
   name: 'inputHeight',
   value: 0,
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.borderArea = new Input({
+store.borderArea = new StoreItem({
   name: 'borderArea',
   value: 0,
   setterHook: renderPrice,
 });
 
-store.selectedMaterial = new Input({
+store.selectedMaterial = new StoreItem({
   name: 'selectedMaterial',
   value: 'choose',
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.checkboxInstalling = new Input({
+store.checkboxInstalling = new StoreItem({
   name: 'checkboxInstalling',
   value: '',
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.submitDisabled = new Input({
+store.submitDisabled = new StoreItem({
   name: 'submitDisabled',
   value: 0,
   setterHook: switchBtnNext,
 });
 
-store.switchFormScreens = new Input({
+store.switchFormScreens = new StoreItem({
   name: 'switchFormScreens',
   value: 0,
   setterHook: renderFormScreen,
