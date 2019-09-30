@@ -1,6 +1,6 @@
 'use strict';
-
-(function(){ 
+if (!window.app) window.app = {};
+window.app.lib = (function(){ 
   class StoreItem {
     constructor({value, name, getterHook, setterHook}) {
       this._value = value;
@@ -47,6 +47,9 @@
       this._setterHook = setterHook;
     }
   }
-  const getStoreItem = config => new StoreItem(config);
   
+  const getStoreItem = config => new StoreItem(config);
+  return {
+    getStoreItem
+  }
 })()
