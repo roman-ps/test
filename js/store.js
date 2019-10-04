@@ -40,6 +40,11 @@ window.app.store = (function(){
     }
   ]
   
+  for (i = 0; i < storeData.length; i++){
+    let current = storeData[i].name;
+    store.current = window.app.lib.getStoreItem(storeData[i]);
+  }
+/*  
   store.inputLength = window.app.lib.getStoreItem({
     name: 'inputLength',
     value: 0,
@@ -80,5 +85,5 @@ window.app.store = (function(){
     name: 'switchFormScreens',
     value: 0,
     setterHook: renderFormScreen,
-  })
+  })*/
 })()
