@@ -1,46 +1,46 @@
 'use strict';
-
+if (!window.app) window.app = {};
 window.app.store = (function(){
   const store = {}
   const storeData = [
     {
       name: 'inputLength',
       value: 0,
-      setterHook: calcPriceCheckBtnNext,
+      //setterHook: calcPriceCheckBtnNext,
     },
     {
       name: 'inputHeight',
       value: 0,
-      setterHook: calcPriceCheckBtnNext,
+      //setterHook: calcPriceCheckBtnNext,
     },
     {
       name: 'borderArea',
       value: 0,
-      setterHook: renderPrice,
+      //setterHook: renderPrice,
     },
     {
       name: 'selectedMaterial',
       value: 'choose',
-      setterHook: calcPriceCheckBtnNext,
+      //setterHook: calcPriceCheckBtnNext,
     },
     {
       name: 'checkboxInstalling',
       value: '',
-      setterHook: calcPriceCheckBtnNext,
+      //setterHook: calcPriceCheckBtnNext,
     },
     {
       name: 'submitDisabled',
       value: 0,
-      setterHook: switchBtnNext,
+      //setterHook: switchBtnNext,
     },
     {
       name: 'switchFormScreens',
       value: 0,
-      setterHook: renderFormScreen,
+      //setterHook: renderFormScreen,
     }
   ]
   
-  for (i = 0; i < storeData.length; i++){
+  for (let i = 0; i < storeData.length; i++){
     let current = storeData[i].name;
     store.current = window.app.lib.getStoreItem(storeData[i]);
   }

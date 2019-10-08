@@ -1,5 +1,7 @@
 'use strict';
 
+import {getStoreItem} from "./store-item2.js";
+
 //const FORM = document.querySelector(".form");
 const BTN_NEXT = document.querySelector(".btn--next");
 const BTN_PREV = document.querySelector(".btn--prev");
@@ -79,6 +81,7 @@ const checkInstalling = (fieldName) => (evt) => {
 const calcPriceCheckBtnNext = () => {
   store.borderArea.value = store.inputLength.value * store.inputHeight.value * calcMaterials();
   store.submitDisabled.value = (store.inputLength.value > 0 && store.inputHeight.value > 0 && store.selectedMaterial.value != 'choose');
+  console.log(store);
 };
 
 // возвращаем цену за материал и монтаж
@@ -91,43 +94,43 @@ const renderPrice = () => {
   PRICE.textContent = store.borderArea.value;
 }
 
-store.inputLength = window.app.lib.getStoreItem({
+store.inputLength = getStoreItem({
   name: 'inputLength',
   value: 0,
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.inputHeight = window.app.lib.getStoreItem({
+store.inputHeight = getStoreItem({
   name: 'inputHeight',
   value: 0,
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.borderArea = window.app.lib.getStoreItem({
+store.borderArea = getStoreItem({
   name: 'borderArea',
   value: 0,
   setterHook: renderPrice,
 });
 
-store.selectedMaterial = window.app.lib.getStoreItem({
+store.selectedMaterial = getStoreItem({
   name: 'selectedMaterial',
   value: 'choose',
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.checkboxInstalling = window.app.lib.getStoreItem({
+store.checkboxInstalling = getStoreItem({
   name: 'checkboxInstalling',
   value: '',
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.submitDisabled = window.app.lib.getStoreItem({
+store.submitDisabled = getStoreItem({
   name: 'submitDisabled',
   value: 0,
   setterHook: switchBtnNext,
 });
 
-store.switchFormScreens = window.app.lib.getStoreItem({
+store.switchFormScreens = getStoreItem({
   name: 'switchFormScreens',
   value: 0,
   setterHook: renderFormScreen,
