@@ -1,6 +1,7 @@
 'use strict';
 
 import {getStoreItem} from "./store-item2.js";
+import {store} from "./store.js";
 
 //const FORM = document.querySelector(".form");
 const BTN_NEXT = document.querySelector(".btn--next");
@@ -22,7 +23,7 @@ const INPUT_PHONE = document.querySelector("#phone");
 const OUTPUT_FIELD = document.querySelector(".output");
 let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
 const INSTALLATION_PRICE = 200;
-const store = {}
+//const store = {}
 const SELECTORS = {
   form: '.form',
   btnNext: '.btn--next',
@@ -94,7 +95,8 @@ const renderPrice = () => {
   PRICE.textContent = store.borderArea.value;
 }
 
-store.inputLength = getStoreItem({
+
+/*store.inputLength = getStoreItem({
   name: 'inputLength',
   value: 0,
   setterHook: calcPriceCheckBtnNext,
@@ -134,7 +136,7 @@ store.switchFormScreens = getStoreItem({
   name: 'switchFormScreens',
   value: 0,
   setterHook: renderFormScreen,
-})
+})*/
 
 let changeValueFormScreens = value => () => store.switchFormScreens.value += value;
 
@@ -165,3 +167,5 @@ function bowMeters(number, one, two, five){
     return five
   };
 }
+
+export {calcPriceCheckBtnNext, switchBtnNext, renderPrice, renderFormScreen}
