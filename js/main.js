@@ -1,6 +1,6 @@
 'use strict';
 
-import {getStoreItem} from "./store-item2.js";
+import {addStoreItem} from "./store-item2.js";
 import {store} from "./store.js";
 
 //const FORM = document.querySelector(".form");

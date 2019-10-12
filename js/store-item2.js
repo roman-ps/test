@@ -47,5 +47,5 @@
     }
   }
  
-const getStoreItem = config => new StoreItem(config);
-export {getStoreItem}
+const addStoreItem = config => new StoreItem(config);
+export {addStoreItem}

@@ -1,46 +1,46 @@
 'use strict';
 
-import {getStoreItem} from "./store-item2.js";
+import {addStoreItem} from "./store-item2.js";
 import {calcPriceCheckBtnNext, switchBtnNext, renderPrice, renderFormScreen} from "./main.js";
 
 const store = {}
-store.inputLength = getStoreItem({
+store.inputLength = addStoreItem({
   name: 'inputLength',
   value: 0,
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.inputHeight = getStoreItem({
+store.inputHeight = addStoreItem({
   name: 'inputHeight',
   value: 0,
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.borderArea = getStoreItem({
+store.borderArea = addStoreItem({
   name: 'borderArea',
   value: 0,
   setterHook: renderPrice,
 });
 
-store.selectedMaterial = getStoreItem({
+store.selectedMaterial = addStoreItem({
   name: 'selectedMaterial',
   value: 'choose',
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.checkboxInstalling = getStoreItem({
+store.checkboxInstalling = addStoreItem({
   name: 'checkboxInstalling',
   value: '',
   setterHook: calcPriceCheckBtnNext,
 });
 
-store.submitDisabled = getStoreItem({
+store.submitDisabled = addStoreItem({
   name: 'submitDisabled',
   value: 0,
   setterHook: switchBtnNext,
 });
 
-store.switchFormScreens = getStoreItem({
+store.switchFormScreens = addStoreItem({
   name: 'switchFormScreens',
   value: 0,
   setterHook: renderFormScreen,
