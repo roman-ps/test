@@ -4,6 +4,7 @@ import {addStoreItem} from "./store-item2.js";
 import {calcPriceCheckBtnNext, switchBtnNext, renderPrice, renderFormScreen} from "./main.js";
 
 const store = {}
+
 store.inputLength = addStoreItem({
   name: 'inputLength',
   value: 0,
@@ -46,4 +47,5 @@ store.switchFormScreens = addStoreItem({
   setterHook: renderFormScreen,
 })
 
-export {store}
+export const setStoreItem = item => store[item.name] = {...item};
+export const getStoreItem = name => store[name];

@@ -1,9 +1,8 @@
 'use strict';
 
 import {addStoreItem} from "./store-item2.js";
-import {store} from "./store.js";
+import {setStoreItem, getStoreItem} from "./store.js";
 
-//const FORM = document.querySelector(".form");
 const BTN_NEXT = document.querySelector(".btn--next");
 const BTN_PREV = document.querySelector(".btn--prev");
 const BTN_SUBMIT = document.querySelector(".btn--submit");
@@ -23,7 +22,6 @@ const INPUT_PHONE = document.querySelector("#phone");
 const OUTPUT_FIELD = document.querySelector(".output");
 let outputText = `Вы укомплектовали забор длинной ${4} метров и высотой ${3} метра из материала ${3} на сумму ${4} &#8381;`;
 const INSTALLATION_PRICE = 200;
-//const store = {}
 const SELECTORS = {
   form: '.form',
   btnNext: '.btn--next',
@@ -64,7 +62,7 @@ const MATERIALS = {
 // присваиваем в стор значение value 
 const getValueChangeHandler = (fieldName) => (evt) => {
   evt.preventDefault;
-  store[fieldName].value = evt.currentTarget.value;
+  setStoreItem([fieldName]).value = evt.currentTarget.value;
 };
 
 // меняем состояние кнопки ДАЛЕЕ
@@ -75,7 +73,7 @@ function switchBtnNext(){
 // присваиваем в стор значение чекбокса
 const checkInstalling = (fieldName) => (evt) => {
   evt.preventDefault;
-  store[fieldName].value = Number(evt.currentTarget.checked);
+  setStoreItem([fieldName]).value = Number(evt.currentTarget.checked);
 }
 
 // вычисление суммы заказа
@@ -87,59 +85,15 @@ const calcPriceCheckBtnNext = () => {
 
 // возвращаем цену за материал и монтаж
 function calcMaterials(){
-  return (((MATERIALS[store.selectedMaterial.value] || {}).price || 0) + (store.checkboxInstalling.value * INSTALLATION_PRICE));
+  return (((MATERIALS[getStoreItem(selectedMaterial).value] || {}).price || 0) + (getStoreItem(checkboxInstalling).value * INSTALLATION_PRICE));
 }
 
 // вывод суммы заказа
 const renderPrice = () => {
-  PRICE.textContent = store.borderArea.value;
+  PRICE.textContent = getStoreItem(borderArea).value;
 }
 
-
-/*store.inputLength = getStoreItem({
-  name: 'inputLength',
-  value: 0,
-  setterHook: calcPriceCheckBtnNext,
-});
-
-store.inputHeight = getStoreItem({
-  name: 'inputHeight',
-  value: 0,
-  setterHook: calcPriceCheckBtnNext,
-});
-
-store.borderArea = getStoreItem({
-  name: 'borderArea',
-  value: 0,
-  setterHook: renderPrice,
-});
-
-store.selectedMaterial = getStoreItem({
-  name: 'selectedMaterial',
-  value: 'choose',
-  setterHook: calcPriceCheckBtnNext,
-});
-
-store.checkboxInstalling = getStoreItem({
-  name: 'checkboxInstalling',
-  value: '',
-  setterHook: calcPriceCheckBtnNext,
-});
-
-store.submitDisabled = getStoreItem({
-  name: 'submitDisabled',
-  value: 0,
-  setterHook: switchBtnNext,
-});
-
-store.switchFormScreens = getStoreItem({
-  name: 'switchFormScreens',
-  value: 0,
-  setterHook: renderFormScreen,
-})*/
-
-let changeValueFormScreens = value => () => store.switchFormScreens.value += value;
-
+let changeValueFormScreens = value => () => getStoreItem(switchFormScreens).value += value;
 const handlePrevScreen = changeValueFormScreens(-1);
 const handleNextScreen = changeValueFormScreens(1);
 
