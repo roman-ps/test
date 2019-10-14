@@ -67,7 +67,7 @@ const getValueChangeHandler = (fieldName) => (evt) => {
 
 // меняем состояние кнопки ДАЛЕЕ
 function switchBtnNext(){
-  BTN_NEXT.disabled = !store.submitDisabled.value;
+  BTN_NEXT.disabled = !(getStoreItem(submitDisabled).value);
 }
 
 // присваиваем в стор значение чекбокса
@@ -78,8 +78,8 @@ const checkInstalling = (fieldName) => (evt) => {
 
 // вычисление суммы заказа
 const calcPriceCheckBtnNext = () => {
-  store.borderArea.value = store.inputLength.value * store.inputHeight.value * calcMaterials();
-  store.submitDisabled.value = (store.inputLength.value > 0 && store.inputHeight.value > 0 && store.selectedMaterial.value != 'choose');
+  setStoreItem(borderArea).value = getStoreItem(inputLength).value * getStoreItem(inputHeight).value * calcMaterials();
+  setStoreItem(submitDisabled).value = (getStoreItem(inputLength).value > 0 && getStoreItem(inputHeight).value > 0 && getStoreItem(selectedMaterial).value != 'choose');
   console.log(store);
 };
 
